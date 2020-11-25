@@ -1,0 +1,12 @@
+FROM mmrl/dl-pytorch
+USER root
+
+RUN apt update
+
+RUN pip install -q mlagents==0.21 
+
+ENV NVIDIA_VISIBLE_DEVICES \
+   ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+   ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+
