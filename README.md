@@ -33,7 +33,7 @@ If it doesn't, follow install them ( `sudo ubuntu-drivers autoinstall` or `sudo 
 
 * **Set up the xorg.config file**: this is required to run NVIDIA in headless mode. https://virtualgl.org/Documentation/HeadlessNV. Don't worry about the VirtualGL part, but follow the points 1, 2 and 3.
 
-To check that everything is setup correctly on the host machine, open two terminals. On one run `nvidia-smi -lms 100`, on the other run `export DISPLAY=:0 && glxgears -display: 0`. `glxgears` it's just a little OpenGL demo that you can easily use as a test. You should see on the `nvidia` terminal the GPU crunching number to render the glxgear script (if you don't have glxgears, install it with `apt update && apt install mesa-utils`). Something like this:
+To check that everything is setup correctly on the host machine, open two terminals. On one run `nvidia-smi -lms 100`, on the other run `export DISPLAY=:0 && glxgears -display: 0`. `glxgears` it's just a little OpenGL demo that you can easily use as a test. You should see on the `nvidia` terminal the GPU crunching number to render the glxgear script (if you don't have glxgears, install it with `apt update && apt install mesa-utils`). You should get something like this:
 ```
 +-----------------------------------------------------------------------------+
 | NVIDIA-SMI 455.38       Driver Version: 455.38       CUDA Version: 11.1     |
@@ -66,8 +66,8 @@ docker run -it \
     --entrypoint /bin/bash \
     ml-agents-visobs-gpu
 ```
-Once inside the terminal, you can test it with glxgears again. (You can use `nvidia-smi` on the host machine.)
-To test whether Unity in ml-agents is actually running on the GPU, use this script in `python`:
+Once inside the terminal, you can test it with glxgears again. (You can use `nvidia-smi` on the host machine.) If it works, we are ready to run a Unity scene.
+To test whether Unity in ml-agents is actually running on the GPU, use this script in `python` inside the Docker container:
 ```python
 import numpy as np
 import time
@@ -88,5 +88,5 @@ for i in range(100):
 print(time.time() - a)
 ```
 
-If it runs without errors, you are good to go! You should see the GPU running the Unity process and crunching numbers on your `nvidia-smi` terminal. I got an increase of 2x with this configuration, compared to the `xvfb` trick I was using before. This is _not great_, but **better**. However, I can at least assume that the bottleneck now is not due to Unity3D rendering: it may be due to socket transfer, or to the rest of my Unity scene that is not 3D related. 
+If it runs without errors, you are good to go! You should see the GPU running the Unity process and crunching numbers on your `nvidia-smi` terminal. I got a speed-up of 2x with this configuration, compared to the `xvfb` trick I was using before. This is _not great_, but **better**. However, I can at least assume that the bottleneck now is not due to Unity3D rendering: it may be due to socket transfer, or to the rest of my Unity scene that is not 3D related. 
 Take this image and mix it up with your own. Enjoy!
