@@ -31,7 +31,7 @@ If it doesn't, install the NVIDIA drivers (plenty of online tutorials about that
 
 * **NVIDIA Container Toolkit**: Check if you have it by running `sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi`. If you don't, follow these instructionts  https://www.server-world.info/en/note?os=Ubuntu_20.04&p=nvidia&f=2
 
-* **Set up the xorg.config file**: follow these instructions: https://virtualgl.org/Documentation/HeadlessNV. Don't worry about the VirtualGL part, but follow the points 1, 2 and 3.
+* **Set up the xorg.config file**: follow these instructions: https://virtualgl.org/Documentation/HeadlessNV. Don't worry about the VirtualGL part, but follow the points 1, 2 and 3. Be careful to leave IN the option `--use-display-device=None` in step 2!
 
 To check that everything is setup correctly on the host machine, open two terminals. On one of them run `nvidia-smi -lms 100`, on the other run `export DISPLAY=:0 && glxgears -display :0`. `glxgears` it's just a little OpenGL demo that you can easily use as a test. You should see on the `nvidia` terminal the GPU crunching numbers to render the glxgear script (if you don't have glxgears, install it with `apt update && apt install mesa-utils`). You should get something like this:
 ```
