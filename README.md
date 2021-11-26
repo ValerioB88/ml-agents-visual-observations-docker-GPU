@@ -83,7 +83,7 @@ spec = env.behavior_specs[behavior_name]
 
 a=time.time()
 for i in range(100):
-	action = spec.create_random_action(len(decision_steps)); env.set_actions(behavior_name, action);env.step();
+	action = spec.action_spec.random_action(len(decision_steps)); env.set_actions(behavior_name, action);env.step();
 
 print(time.time() - a)
 ```
